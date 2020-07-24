@@ -2,13 +2,22 @@ let time = 100
 
 document.getElementById('counter').textContent = time
 
+let interval
 
-// start timer when startBtn clicked
-document.getElementById('startBtn').addEventListener('click', setInterval(function() {
+function startTimer() {
+  interval = setInterval(timer, 1000)
+}
+
+function timer() {
   if (time <= 0) {
-    clearInterval();
+    interval.clearInterval(interval);
   }
   time--
   document.getElementById('counter').textContent = time
-}, 1000))
+}
+
+// start timer when startBtn clicked
+document.getElementById('startBtn').addEventListener('click', function() {
+  startTimer()
+})
 
