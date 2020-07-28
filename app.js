@@ -13,7 +13,7 @@ let questions = [
     a2: 'curly brackets',
     a3: 'parentheses',
     a4: 'square brackets',
-    correct: 'parantheses'
+    correct: 'parentheses'
   },
   {
     question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
@@ -37,7 +37,7 @@ let questions = [
     a2: 'curly brackets',
     a3: 'quotes',
     a4: 'parentheses',
-    correct: 'parentheses'
+    correct: 'quotes'
   },
   {
     question: 'Inside which HTML element do we put the JavaScript?',
@@ -56,12 +56,12 @@ let questions = [
     correct: 'document.getElementById("demo").innerHTML = "Hello World!";'
   },
   {
-    question: 'What is the correct syntax for referring to an external script called "xxx.js"?',
-    a1: '<script src="xxx.js">',
-    a2: '<script name="xxx.js">',
-    a3: '<script href="xxx.js">',
-    a4: '<script link="xxx.js">',
-    correct: '<script src="xxx.js">'
+    question: 'What is the correct syntax for referring to an external script called "app.js"?',
+    a1: '<script src="app.js">',
+    a2: '<script name="app.js">',
+    a3: '<script href="app.js">',
+    a4: '<script link="app.js">',
+    correct: '<script src="app.js">'
   },
   {
     question: 'How do you write "Hello World" in an alert box?',
@@ -76,7 +76,7 @@ let questions = [
     a1: 'call function myFunction()',
     a2: 'myFunction()',
     a3: 'call myFunction()',
-    a4: 'myFunction().call',
+    a4: 'myFunction().call()',
     correct: 'myFunction()'
   }
 ]
@@ -95,7 +95,9 @@ const checkEnd = () => {
 
   // check if there are still questions left
   if (questionNumber >= questions.length) {
-    finishQuiz
+    finishQuiz()
+  } else {
+    askQuestion()
   }
 }
 
@@ -112,6 +114,9 @@ const askQuestion = () => {
 
   // reset div for buttons from question to question, at start reset start buttton to answer buttons
   document.getElementById('buttons').innerHTML = ''
+
+  // reset feedback
+  document.getElementById('feedback').textContent = ''
 
   // render answer buttons to the screen
   for (let i = 0; i < answers.length; i++) {
@@ -130,7 +135,7 @@ const selectAnswer = answer => {
   let line = document.createElement('hr')
   let message = document.createElement('p')
 
-  line.className = 'my-4'
+  line.classList.add('my-4')
   line.id = 'feedbackLine'
 
   message.id = 'feedbackMessage'
@@ -141,7 +146,7 @@ const selectAnswer = answer => {
     // increase score and add time
     currentScore++
     time+=5
-    
+
     message.textContent = 'Correct!'
     document.getElementById('feedback').append(line)
     document.getElementById('feedback').append(message)
@@ -159,7 +164,20 @@ const selectAnswer = answer => {
 
   // go to next question
   questionNumber++
+
+  // ask next question after 1.5 seconds or end the quiz
   setTimeout(checkEnd, 1500)
+}
+
+const finishQuiz = () => {
+
+  // reset html in #mainContent
+  document.getElementById('mainContent').innerHTML = ''
+
+  let finished = document.createElement('h2')
+  finished.id = 'finished'
+  finished.classList.add('text-center')
+  finished.textContent = 'All Done!'
 }
 
 // start quiz when startBtn clicked
@@ -184,7 +202,11 @@ document.addEventListener('click', event => {
 
   // handle score submission
   if (event.target.id === 'submission') {
+    event.preventDefault()
 
+    let initials = document.getElementById('inititals')
+  
+    submission(initials, currentScore)
   } else if (event.target.classList.contains('answerButtons')) {
     selectAnswer(event.target.dataset.answer)
   }
