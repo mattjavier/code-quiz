@@ -198,6 +198,29 @@ const finishQuiz = () => {
   document.getElementById('mainContent').append(submissionForm)
 }
 
+const restartQuiz = () => {
+
+  // reset variables
+  time = 0
+  currentScore = 0
+  questionNumber = 0
+
+  // reset timer
+  document.getElementById('counter') = time
+
+  // reset body of html
+  document.getElementById('mainContent').innerHTML = `
+    <div id="mainText">
+      <h1 id="start" class="text-center">Coding Quiz Challenge</h1>
+        <p id="directions" class="text-center">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+    </div>
+    <div id="buttons" class="text-center">
+      <button id="startBtn" class="btn btn-danger btn-lg">Start Quiz</button>
+    </div>
+    <aside id="feedback"></aside>
+  `
+}
+
 // start quiz when startBtn clicked
 document.getElementById('startBtn').addEventListener('click', () => {
 
@@ -225,8 +248,18 @@ document.addEventListener('click', event => {
     let initials = document.getElementById('inititals')
   
     submission(initials, currentScore)
+
+  } else if (event.target.id === 'highScores') {
+
+    // go to high scores leaderboard
+    leaderboard()
+
   } else if (event.target.classList.contains('answerButtons')) {
     selectAnswer(event.target.dataset.answer)
+  } else if (event.target.id === 'restart') {
+
+    // restart quiz to initial state
+    restartQuiz()
   }
 
 })
