@@ -195,6 +195,8 @@ const selectAnswer = answer => {
 
 const finishQuiz = () => {
 
+  clearInterval(countdown)
+
   // reset html in #mainContent
   document.getElementById('mainContent').innerHTML = ''
 
@@ -228,16 +230,11 @@ const submission = info => {
 
 
   // check local storage for high scores array
-  let highScores = JSON.parse(localStorage.getItem('highscores')) || []
+  let highScores = JSON.parse(localStorage.getItem('highScores')) || []
 
   // add new high score to local storage
   highScores.push(info)
   localStorage.setItem('highScores', JSON.stringify(highScores))
-
-  // sort in descending order
-  highScores.sort((a, b) => {
-    return b.finalScore - a.finalScore
-  })
 
   // render leaderboard
   leaderboard()
@@ -249,7 +246,12 @@ const leaderboard = () => {
   document.getElementById('mainContent').innerHTML = ''
 
   // check local storage for array, if it doesn't exist render empty leaderboard
-  let scores = JSON.parse(localStorage.getItem('highscores')) || []
+  let scores = JSON.parse(localStorage.getItem('highScores')) || []
+
+  // sort in descending order
+  scores.sort((a, b) => {
+    return b.finalScore - a.finalScore
+  })
 
   // create leaderboard table
   let leaderboardContent = document.createElement('section')
