@@ -184,6 +184,7 @@ const finishQuiz = () => {
   finalScore.classList.add('text-left')
   finalScore.textContent = `Your final score is ${currentScore}.`
 
+  // create submission form for score leaderboard
   let submissionForm = document.createElement('form')
   submissionForm.innerHTML = `
     <div class="form-group text-left">
@@ -193,6 +194,7 @@ const finishQuiz = () => {
     </div>
   `
 
+  // render new #mainContent
   document.getElementById('mainContent').append(finished)
   document.getElementById('mainContent').append(finalScore)
   document.getElementById('mainContent').append(submissionForm)
@@ -200,23 +202,47 @@ const finishQuiz = () => {
 
 const submission = (name, score) => {
 
+  // check local storage for high scores array
   let highScores = JSON.parse(localStorage.getItem('highscores')) || []
+
+  // add new high score to local storage
   highScores.push({initials: name, finalScore: score})
   localStorage.setItem(highScores, JSON.stringify(highScores))
 
+  // sort in descending order
   highScores.sort((a, b) => {
     return b.finalScore - a.finalScore
   })
 
+  // render leaderboard
   leaderboard()
 }
 
 const leaderboard = () => {
+
+  // reset #mainContent to render leaderboard
+  document.getElementById('mainContent').innerHTML = ''
+
+  // check local storage for array, if it doesn't exist render empty leaderboard
   let scores = JSON.parse(localStorage.getItem('highscores')) || []
 
-  if (scores.length <= 0) {
-    console.log('empty')
+  // create leaderboard table
+  let leaderboardContent = document.createElement('section')
+
+  let leaderboardTitle = document.createElement('h2')
+  leaderboardTitle.textContent = 'High Scores'
+  leaderboardContent.append(leaderboardTitle)
+
+  // render leaderboard to screen, nothing if leaderboard is empty
+  for (let i = 0; i < scores.length; i++) {
+    let elem = document.createElement('p')
+    elem.classList.add('rankings')
+    elem.textContent = `${i + 1}. ${scores[i].initials} — ${scores[i].finalScore}`
+
+    leaderboardContent.append(elem)
   }
+
+  document.getElementById('mainContent').append(leaderboardContent)
 }
 
 const restartQuiz = () => {
