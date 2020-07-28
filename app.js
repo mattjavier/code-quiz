@@ -90,6 +90,9 @@ let questionNumber = 0
 // initial score = 0, updates after a correct answer
 let currentScore = 0
 
+// countdown timer interval
+let countdown
+
 
 const checkEnd = () => {
 
@@ -207,7 +210,7 @@ const submission = (name, score) => {
 
   // add new high score to local storage
   highScores.push({initials: name, finalScore: score})
-  localStorage.setItem(highScores, JSON.stringify(highScores))
+  localStorage.setItem('highScores', JSON.stringify(highScores))
 
   // sort in descending order
   highScores.sort((a, b) => {
@@ -243,17 +246,43 @@ const leaderboard = () => {
   }
 
   document.getElementById('mainContent').append(leaderboardContent)
+
+  let restartBtn = document.createElement('button')
+  let clearBtn = document.createElement('button')
+
+  restartBtn.className = 'btn btn-danger'
+  clearBtn.className = 'btn btn-danger'
+
+  restartBtn.id = 'restart'
+  clearBtn.id = 'clear'
+
+  restartBtn.textContent = 'Restart'
+  clearBtn.textContent = 'Clear Scores'
+
+  document.getElementById('mainContent').append(restartBtn)
+  document.getElementById('mainContent').append(clearBtn)
+}
+
+const clearHighScores = () => {
+
+  // create empty array to store in local storage in place of high scores
+  let newScores = []
+
+  localStorage.setItem('highScores', JSON.stringify(newScores))
+
 }
 
 const restartQuiz = () => {
 
+  clearInterval(countdown)
+
   // reset variables
-  time = 0
+  time = 120
   currentScore = 0
   questionNumber = 0
 
   // reset timer
-  document.getElementById('counter') = time
+  document.getElementById('counter').textContent = time
 
   // reset body of html
   document.getElementById('mainContent').innerHTML = `
@@ -270,15 +299,16 @@ const restartQuiz = () => {
 
 // start quiz when startBtn clicked
 document.getElementById('startBtn').addEventListener('click', () => {
-
+  console.log('start')
   // start timer
-  setInterval(() => {
-    if (time <= 0) {
-      clearInterval();
-    }
-
+  countdown = setInterval(() => {
     time--
     document.getElementById('counter').textContent = time
+
+    if (time <= 0) {
+      clearInterval(countdown);
+      leaderboard();
+    }
   }, 1000)
 
   // ask a new question at start of quiz
@@ -307,6 +337,11 @@ document.addEventListener('click', event => {
 
     // restart quiz to initial state
     restartQuiz()
+
+  } else if (event.target.id === 'clear') {
+    
+    // delete scores from local storage
+    clearHighScores()
   }
 
 })
