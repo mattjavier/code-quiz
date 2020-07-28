@@ -6,3 +6,8 @@
   width: 50%;
   padding-top: 200px;
 }
+
+.answerButtons {
+  display: block;
+  margin: 10px;
+}

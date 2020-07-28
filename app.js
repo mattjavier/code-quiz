@@ -81,8 +81,8 @@ let questions = [
   }
 ]
 
-// time left, initially at 100 seconds, will decrease by 10 if user answers incorrectly
-let time = 100
+// time left, decreases by 1 second, will decrease by 10 seconds if user answers incorrectly
+let time = document.getElementById('counter').textContent
 
 // current question number 
 let questionNumber = 0
@@ -90,13 +90,48 @@ let questionNumber = 0
 const askQuestion = () => {
 
   // reset main#mainText to render questions
-  document.getElementById('mainContent').textContent = questions[questionNumber].question
+  document.getElementById('mainText').textContent = questions[questionNumber].question
   
   let answers = []
   answers.push(questions[questionNumber].a1)
   answers.push(questions[questionNumber].a2)
   answers.push(questions[questionNumber].a3)
   answers.push(questions[questionNumber].a4)
+
+  // reset div for buttons from question to question, at start reset start buttton to answer buttons
+  document.getElementById('buttons').innerHTML = ''
+
+  // render answer buttons to the screen
+  for (let i = 0; i < answers.length; i++) {
+    let choice = document.createElement('button')
+    choice.className = 'btn btn-danger answerButtons'
+    choice.dataset.answer = answers[i]
+    choice.textContent = answers[i]
+
+    document.getElementById('buttons').append(choice)
+  }
+}
+
+const selectAnswer = (answer, currentScore) => {
+
+  // create variables for feedback on answers
+  let line = document.createElement('hr')
+  let message = document.createElement('p')
+
+  line.className = 'my-4'
+  line.id = 'feedbackLine'
+
+  message.id = 'feedbackMessage'
+
+
+  // check if selected answer is correct
+  if (questions[questionNumber].correct === answer) {
+    currentScore++
+    message.textContent = 'Correct!'
+    document.getElementById('feedback').append(line)
+    document.getElementById('feedback').append(message)
+    document.getElementById('buttons').append(feedback)
+  } 
 
 }
 
@@ -117,5 +152,17 @@ document.getElementById('startBtn').addEventListener('click', () => {
   askQuestion()
 })
 
+// click event handler
+document.addEventListener('click', event => {
+  let score = 0
+  
+  // handle score submission
+  if (event.target.id === 'submission') {
+
+  } else if (event.target.classList.contains('answerButtons')) {
+    selectAnswer(event.target.dataset.answer, score)
+  }
+
+})
 
 let scoreboard = JSON.parse(localStorage.getItem('scoreboard')) || []
