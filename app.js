@@ -104,6 +104,27 @@ const checkEnd = () => {
   }
 }
 
+const startQuiz = () => {
+
+  // start quiz when startBtn clicked
+  document.getElementById('startBtn').addEventListener('click', () => {
+    console.log('start')
+    // start timer
+    countdown = setInterval(() => {
+      time--
+      document.getElementById('counter').textContent = time
+
+      if (time <= 0) {
+        clearInterval(countdown);
+        leaderboard();
+      }
+    }, 1000)
+
+    // ask a new question at start of quiz
+    askQuestion()
+  })
+}
+
 const askQuestion = () => {
 
   // reset main#mainText to render questions
@@ -157,7 +178,11 @@ const selectAnswer = answer => {
   } else {
 
     // deduct time off when incorrect
-    time-=10
+    if (time - 10 === 0) {
+      time = 0
+    } else {
+      time-=10
+    }
 
     message.textContent = 'Incorrect!'
     document.getElementById('feedback').append(line)
@@ -295,25 +320,11 @@ const restartQuiz = () => {
     </div>
     <aside id="feedback"></aside>
   `
+
+  startQuiz()
 }
 
-// start quiz when startBtn clicked
-document.getElementById('startBtn').addEventListener('click', () => {
-  console.log('start')
-  // start timer
-  countdown = setInterval(() => {
-    time--
-    document.getElementById('counter').textContent = time
-
-    if (time <= 0) {
-      clearInterval(countdown);
-      leaderboard();
-    }
-  }, 1000)
-
-  // ask a new question at start of quiz
-  askQuestion()
-})
+startQuiz()
 
 // click event handler
 document.addEventListener('click', event => {
@@ -343,5 +354,4 @@ document.addEventListener('click', event => {
     // delete scores from local storage
     clearHighScores()
   }
-
 })
