@@ -228,7 +228,6 @@ const finishQuiz = () => {
 
 const submission = info => {
 
-
   // check local storage for high scores array
   let highScores = JSON.parse(localStorage.getItem('highScores')) || []
 

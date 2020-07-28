@@ -15,3 +15,5 @@ This a web browser app that tests a user on JavaScript concepts. It is multiple 
 * The user can then view all high scores or go back to the Start menu.
 
 NOTE: high scores can be viewed before a new quiz has started, as well as cleared to remove all current high scores.
+
+See https://mattjavier.github.io/code-quiz/ to view application
