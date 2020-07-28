@@ -176,8 +176,26 @@ const finishQuiz = () => {
 
   let finished = document.createElement('h2')
   finished.id = 'finished'
-  finished.classList.add('text-center')
+  finished.classList.add('text-left')
   finished.textContent = 'All Done!'
+
+  let finalScore = document.createElement('p')
+  finalScore.id = 'finalScore'
+  finalScore.classList.add('text-left')
+  finalScore.textContent = `Your final score is ${currentScore}.`
+
+  let submissionForm = document.createElement('form')
+  submissionForm.innerHTML = `
+    <div class="form-group text-left">
+      <label for="initials" id="initialsLabel">Enter Initials: </label>
+      <input type="text" class="form-control" id="initials">
+      <button id="submission" class="btn btn-danger">Submit</button>
+    </div>
+  `
+
+  document.getElementById('mainContent').append(finished)
+  document.getElementById('mainContent').append(finalScore)
+  document.getElementById('mainContent').append(submissionForm)
 }
 
 // start quiz when startBtn clicked
@@ -213,4 +231,4 @@ document.addEventListener('click', event => {
 
 })
 
-let scoreboard = JSON.parse(localStorage.getItem('scoreboard')) || []
+finishQuiz()

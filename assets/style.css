@@ -11,3 +11,7 @@
   display: block;
   margin: 10px;
 }
+
+#initialsLabel, #initials {
+  display: inline-block;
+}
