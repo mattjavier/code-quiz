@@ -87,6 +87,11 @@ let time = document.getElementById('counter').textContent
 // current question number 
 let questionNumber = 0
 
+const checkEnd = () => {
+
+  // check if there are still questions left
+}
+
 const askQuestion = () => {
 
   // reset main#mainText to render questions
@@ -123,16 +128,23 @@ const selectAnswer = (answer, currentScore) => {
 
   message.id = 'feedbackMessage'
 
-
   // check if selected answer is correct
   if (questions[questionNumber].correct === answer) {
     currentScore++
     message.textContent = 'Correct!'
     document.getElementById('feedback').append(line)
     document.getElementById('feedback').append(message)
-    document.getElementById('buttons').append(feedback)
-  } 
+    document.getElementById('mainContent').append(feedback)
+  } else {
+    message.textContent = 'Incorrect!'
+    document.getElementById('feedback').append(line)
+    document.getElementById('feedback').append(message)
+    document.getElementById('mainContent').append(feedback)
+  }
 
+  // go to next question
+  questionNumber++
+  setTimeout(checkEnd, 1500)
 }
 
 // start quiz when startBtn clicked
