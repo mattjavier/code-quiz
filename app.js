@@ -93,6 +93,8 @@ let currentScore = 0
 // countdown timer interval
 let countdown
 
+// allow ability to click answer
+let canAnswer = true
 
 const checkEnd = () => {
 
@@ -190,7 +192,11 @@ const selectAnswer = answer => {
   questionNumber++
 
   // ask next question after 1.5 seconds or end the quiz
-  setTimeout(checkEnd, 1500)
+  canAnswer = false
+  setTimeout(() => {
+    checkEnd()
+    canAnswer = true
+  }, 1500)
 }
 
 const finishQuiz = () => {
@@ -300,7 +306,7 @@ const restartQuiz = () => {
   clearInterval(countdown)
 
   // reset variables
-  time = 5
+  time = 120
   currentScore = 0
   questionNumber = 0
 
@@ -311,7 +317,7 @@ const restartQuiz = () => {
   document.getElementById('mainContent').innerHTML = `
     <div id="mainText">
       <h1 id="start" class="text-center">Coding Quiz Challenge</h1>
-        <p id="directions" class="text-center">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
+        <p id="directions" class="text-center">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by five seconds!</p>
     </div>
     <div id="buttons" class="text-center">
       <button id="startBtn" class="btn btn-danger btn-lg">Start Quiz</button>
@@ -343,7 +349,7 @@ document.addEventListener('click', event => {
     // go to high scores leaderboard
     leaderboard()
 
-  } else if (event.target.classList.contains('answerButtons')) {
+  } else if (event.target.classList.contains('answerButtons') && canAnswer) {
     selectAnswer(event.target.dataset.answer)
   } else if (event.target.id === 'restart') {
 

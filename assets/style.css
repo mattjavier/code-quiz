@@ -1,3 +1,7 @@
+#topContainer {
+  padding-top: 5px;
+}
+
 #highScores {
   cursor: pointer;
 }
@@ -7,9 +11,18 @@
   padding-top: 200px;
 }
 
+#directions {
+  padding: 10px;
+  font-size: 20px;
+}
+
 .answerButtons {
   display: block;
   margin: 10px;
+}
+
+#feedback {
+  font-style: italic;
 }
 
 #initialsLabel, #initials {
