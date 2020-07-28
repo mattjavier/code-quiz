@@ -87,9 +87,16 @@ let time = document.getElementById('counter').textContent
 // current question number 
 let questionNumber = 0
 
+// initial score = 0, updates after a correct answer
+let currentScore = 0
+
+
 const checkEnd = () => {
 
   // check if there are still questions left
+  if (questionNumber >= questions.length) {
+    finishQuiz
+  }
 }
 
 const askQuestion = () => {
@@ -117,7 +124,7 @@ const askQuestion = () => {
   }
 }
 
-const selectAnswer = (answer, currentScore) => {
+const selectAnswer = answer => {
 
   // create variables for feedback on answers
   let line = document.createElement('hr')
@@ -130,12 +137,20 @@ const selectAnswer = (answer, currentScore) => {
 
   // check if selected answer is correct
   if (questions[questionNumber].correct === answer) {
+
+    // increase score and add time
     currentScore++
+    time+=5
+    
     message.textContent = 'Correct!'
     document.getElementById('feedback').append(line)
     document.getElementById('feedback').append(message)
     document.getElementById('mainContent').append(feedback)
   } else {
+
+    // deduct time off when incorrect
+    time-=10
+
     message.textContent = 'Incorrect!'
     document.getElementById('feedback').append(line)
     document.getElementById('feedback').append(message)
@@ -166,13 +181,12 @@ document.getElementById('startBtn').addEventListener('click', () => {
 
 // click event handler
 document.addEventListener('click', event => {
-  let score = 0
-  
+
   // handle score submission
   if (event.target.id === 'submission') {
 
   } else if (event.target.classList.contains('answerButtons')) {
-    selectAnswer(event.target.dataset.answer, score)
+    selectAnswer(event.target.dataset.answer)
   }
 
 })

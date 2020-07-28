@@ -4,7 +4,7 @@ This a web browser app that tests a user on JavaScript concepts. It is multiple 
 
 * Quiz begins after the user clicks the START button, the timer begins.
 
-* The user will be presented with a question. If the user answers correctly, they will be notified as such and will move on to the next question.
+* The user will be presented with a question. If the user answers correctly, they will be notified as such and will move on to the next question. Their score will increase and they will be given additional time.
 
 * If the user answers incorrectly, they will be notified as such and time will be subtracted. 
 
