@@ -108,7 +108,7 @@ const startQuiz = () => {
 
   // start quiz when startBtn clicked
   document.getElementById('startBtn').addEventListener('click', () => {
-    console.log('start')
+    
     // start timer
     countdown = setInterval(() => {
       time--
@@ -116,7 +116,7 @@ const startQuiz = () => {
 
       if (time <= 0) {
         clearInterval(countdown);
-        leaderboard();
+        finishQuiz()
       }
     }, 1000)
 
@@ -178,11 +178,7 @@ const selectAnswer = answer => {
   } else {
 
     // deduct time off when incorrect
-    if (time - 10 === 0) {
-      time = 0
-    } else {
-      time-=10
-    }
+    time-=5
 
     message.textContent = 'Incorrect!'
     document.getElementById('feedback').append(line)
@@ -228,13 +224,14 @@ const finishQuiz = () => {
   document.getElementById('mainContent').append(submissionForm)
 }
 
-const submission = (name, score) => {
+const submission = info => {
+
 
   // check local storage for high scores array
   let highScores = JSON.parse(localStorage.getItem('highscores')) || []
 
   // add new high score to local storage
-  highScores.push({initials: name, finalScore: score})
+  highScores.push(info)
   localStorage.setItem('highScores', JSON.stringify(highScores))
 
   // sort in descending order
@@ -302,7 +299,7 @@ const restartQuiz = () => {
   clearInterval(countdown)
 
   // reset variables
-  time = 120
+  time = 5
   currentScore = 0
   questionNumber = 0
 
@@ -333,9 +330,12 @@ document.addEventListener('click', event => {
   if (event.target.id === 'submission') {
     event.preventDefault()
 
-    let initials = document.getElementById('inititals')
-  
-    submission(initials, currentScore)
+    let initials = document.getElementById('initials').value
+    
+    submission({
+      initials: document.getElementById('initials').value, 
+      finalScore: currentScore
+    })
 
   } else if (event.target.id === 'highScores') {
 
