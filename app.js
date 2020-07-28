@@ -198,6 +198,27 @@ const finishQuiz = () => {
   document.getElementById('mainContent').append(submissionForm)
 }
 
+const submission = (name, score) => {
+
+  let highScores = JSON.parse(localStorage.getItem('highscores')) || []
+  highScores.push({initials: name, finalScore: score})
+  localStorage.setItem(highScores, JSON.stringify(highScores))
+
+  highScores.sort((a, b) => {
+    return b.finalScore - a.finalScore
+  })
+
+  leaderboard()
+}
+
+const leaderboard = () => {
+  let scores = JSON.parse(localStorage.getItem('highscores')) || []
+
+  if (scores.length <= 0) {
+    console.log('empty')
+  }
+}
+
 const restartQuiz = () => {
 
   // reset variables
@@ -263,5 +284,3 @@ document.addEventListener('click', event => {
   }
 
 })
-
-finishQuiz()
