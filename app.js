@@ -183,6 +183,7 @@ const selectAnswer = answer => {
 
     // deduct time off when incorrect
     time-=5
+    document.getElementById('counter').textContent = time
 
     message.textContent = 'Incorrect!'
     document.getElementById('feedback').append(line)
