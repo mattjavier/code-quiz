@@ -131,6 +131,7 @@ const askQuestion = () => {
 
   // reset main#mainText to render questions
   document.getElementById('mainText').textContent = questions[questionNumber].question
+  document.getElementById('mainText').classList.add('text-left')
   
   let answers = []
   answers.push(questions[questionNumber].a1)
@@ -260,15 +261,23 @@ const leaderboard = () => {
 
   // create leaderboard table
   let leaderboardContent = document.createElement('section')
+  leaderboardContent.className = 'container-fluid'
+  leaderboardContent.id = 'leaderboardSection'
 
   let leaderboardTitle = document.createElement('h2')
+  leaderboardTitle.id = 'leaderboardTitle'
   leaderboardTitle.textContent = 'High Scores'
   leaderboardContent.append(leaderboardTitle)
 
   // render leaderboard to screen, nothing if leaderboard is empty
   for (let i = 0; i < scores.length; i++) {
     let elem = document.createElement('p')
-    elem.classList.add('rankings')
+    elem.className = 'rankings text-left'
+
+    if (i % 2 === 0) {
+      elem.classList.add('dangerOpac')
+      elem.classList.add('opacity-2')
+    }
     elem.textContent = `${i + 1}. ${scores[i].initials} — ${scores[i].finalScore}`
 
     leaderboardContent.append(elem)

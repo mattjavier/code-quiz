@@ -6,10 +6,11 @@
     <title>Code Quiz</title>
     <link rel="stylesheet" href="./assets/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/style.css">
   </head>
   <body>
-    <!-- use bootstrap -->
+    <!-- top container for high scores and timer -->
     <aside id="topContainer" class="container-md"> 
       <div class="row">
         <a id="highScores" class="col-6 text-left text-danger">View High Scores</a>
@@ -17,7 +18,8 @@
       </div>
     </aside>
     
-    <main id="mainContent" class="container-md text-center">
+    <!-- main container: will dynamically change into questions and answers, also will display leaderboard -->
+    <main id="mainContent" class="container-fluid text-center">
       <div id="mainText">
         <h1 id="start" class="text-center">Coding Quiz Challenge</h1>
         <p id="directions" class="text-center">Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your remaining time by five seconds!</p>
@@ -25,6 +27,8 @@
       <div id="buttons" class="text-center">
         <button id="startBtn" class="btn btn-danger btn-lg">Start Quiz</button>
       </div>
+
+      <!-- aside will give feedback to user -->
       <aside id="feedback"></aside>
     </main>
     
