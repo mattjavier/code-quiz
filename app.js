@@ -148,6 +148,7 @@ const askQuestion = () => {
   // render answer buttons to the screen
   for (let i = 0; i < answers.length; i++) {
     let choice = document.createElement('button')
+    choice.id = 'aBtn'
     choice.className = 'btn btn-danger answerButtons'
     choice.dataset.answer = answers[i]
     choice.textContent = answers[i]

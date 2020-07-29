@@ -3,7 +3,7 @@
 }
 
 #topContainer {
-  padding-top: 5px;
+  padding: 10px 10px 0 10px;
 }
 
 #highScores {
@@ -74,5 +74,9 @@
   #mainContent {
     width: 100%;
     padding: 100px 20px;
+  }
+
+  #aBtn {
+    font-size: 12px;
   }
 }
