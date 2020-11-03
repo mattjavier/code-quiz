@@ -24,16 +24,16 @@ See https://mattjavier.github.io/code-quiz/ to view application.
 
 * The start of the application
   
-<img src="./assets/images/quiz-start.png" width="400px">
+<img src="./assets/images/quiz-start.png" width="600px">
 
 * A question on the quiz
   
-<img src="./assets/images/quiz-question.png" width="400px">
+<img src="./assets/images/quiz-question.png" width="600px">
 
 * The final score on a quiz attempt
    
-<img src="./assets/images/quiz-score.png" width="400px">
+<img src="./assets/images/quiz-score.png" width="600px">
 
 * The list of high scores, stored in local storage
   
-<img src="./assets/images/quiz-high-scores.png" width="400px">
+<img src="./assets/images/quiz-high-scores.png" width="600px">
